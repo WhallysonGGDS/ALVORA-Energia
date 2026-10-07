@@ -137,7 +137,7 @@ html.lenis body {
     transform: scaleX(0);
   }
   .js [data-unclip] {
-    clip-path: inset(9% 5% 9% 5% round 30px);
+    clip-path: var(--unclip);
   }
 }
 

@@ -94,15 +94,17 @@ export default function MotionDirector() {
         inset: "inset(12% 12% 12% 12%)",
       };
       all("[data-clip]").forEach((el) => {
+        const delay = Number(el.dataset.delay ?? 0);
         const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 82%", once: true } });
         tl.fromTo(
           el,
           { clipPath: clipFrom[el.dataset.clip ?? "up"] },
-          { clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut" }
+          { clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut" },
+          delay
         );
         const img = el.querySelector("img");
         if (img && !el.hasAttribute("data-parallax")) {
-          tl.fromTo(img, { scale: 1.22 }, { scale: 1, duration: 2.2, ease: "expo.out" }, 0.1);
+          tl.fromTo(img, { scale: 1.22 }, { scale: 1, duration: 2.2, ease: "expo.out" }, delay + 0.1);
         }
       });
 

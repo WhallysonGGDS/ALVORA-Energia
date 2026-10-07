@@ -1,10 +1,36 @@
 import Logo from "./ui/Logo";
 import { Arrow } from "./ui/Arrow";
+import { externalHref } from "@/lib/links";
 
 const COLS = [
-  { t: "Empresa", l: ["Energia", "Operações", "Impacto", "Investidores", "Sobre", "Contato"] },
-  { t: "Acesso", l: ["Área do cliente", "Fornecedores", "Carreiras", "Imprensa"] },
-  { t: "Redes", l: ["LinkedIn", "Instagram", "YouTube"] },
+  {
+    t: "Empresa",
+    l: [
+      ["Energia", "#energia"],
+      ["Operações", "#operacoes"],
+      ["Impacto", "#impacto"],
+      ["Investidores", "#investidores"],
+      ["Sobre", "#sobre"],
+      ["Contato", "#contato"],
+    ],
+  },
+  {
+    t: "Acesso",
+    l: [
+      ["Área do cliente", externalHref("cliente")],
+      ["Fornecedores", externalHref("fornecedores")],
+      ["Carreiras", externalHref("carreiras")],
+      ["Imprensa", externalHref("imprensa")],
+    ],
+  },
+  {
+    t: "Redes",
+    l: [
+      ["LinkedIn", externalHref("linkedin")],
+      ["Instagram", externalHref("instagram")],
+      ["YouTube", externalHref("youtube")],
+    ],
+  },
 ];
 
 export default function Footer() {
@@ -26,9 +52,9 @@ export default function Footer() {
             <nav key={c.t} aria-label={c.t} className="col-span-6 md:col-span-4 lg:col-span-2 lg:col-start-auto">
               <p className="label text-paper/40">{c.t}</p>
               <ul className="mt-6 space-y-3">
-                {c.l.map((l) => (
+                {c.l.map(([l, href]) => (
                   <li key={l}>
-                    <a href="#topo" className="text-paper/75 transition-colors hover:text-paper">
+                    <a href={href} className="text-paper/75 transition-colors hover:text-paper">
                       {l}
                     </a>
                   </li>
