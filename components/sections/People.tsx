@@ -2,6 +2,7 @@ import Photo from "../ui/Photo";
 import Lines from "../ui/Lines";
 import CtaLink from "../ui/CtaLink";
 import Eyebrow from "../ui/Eyebrow";
+import { externalHref } from "@/lib/links";
 
 /** Pessoas — a imagem apresenta humanidade. Registro documental, não "foto de equipe". */
 export default function People() {
@@ -46,7 +47,7 @@ export default function People() {
                 energética mais eficiente.
               </p>
               <div data-fade="" className="mt-10">
-                <CtaLink href="#carreiras">Conheça quem opera a energia</CtaLink>
+                <CtaLink href={externalHref("carreiras")}>Conheça quem opera a energia</CtaLink>
               </div>
             </div>
           </div>

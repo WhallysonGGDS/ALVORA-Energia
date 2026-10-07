@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Lines from "../ui/Lines";
 
+// Moldura inicial: lida pelo MotionDirector (data-unclip) e pelo CSS (--unclip) para o estado antes do JS
+const FRAME = "inset(9% 5% 9% 5% round 30px)";
+
 /**
  * Capítulo 01 — Solar. Cena sticky: a moldura se abre até virar tela cheia
  * e a fotografia aérea faz um zoom lento. O texto permanece estável.
@@ -17,7 +20,8 @@ export default function Solar() {
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div
-          data-unclip="inset(9% 5% 9% 5% round 30px)"
+          data-unclip={FRAME}
+          style={{ "--unclip": FRAME } as React.CSSProperties}
           className="absolute inset-0 overflow-hidden bg-ink"
         >
           <div data-zoom="1.14" data-zoom-from="1" className="absolute inset-0 will-change-transform">

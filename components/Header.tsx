@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Logo from "./ui/Logo";
 import { Arrow } from "./ui/Arrow";
 import { scrollToTarget } from "@/lib/scroll";
+import { externalHref } from "@/lib/links";
 
 const NAV = [
   { label: "Energia", href: "#energia" },
@@ -12,6 +13,8 @@ const NAV = [
   { label: "Investidores", href: "#investidores" },
   { label: "Sobre", href: "#sobre" },
 ];
+
+const CLIENTE = externalHref("cliente");
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -34,6 +37,7 @@ export default function Header() {
   }, [open]);
 
   const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith("#")) return;
     e.preventDefault();
     setOpen(false);
     requestAnimationFrame(() => scrollToTarget(href));
@@ -78,7 +82,8 @@ export default function Header() {
 
             <div className="flex items-center gap-2">
               <a
-                href="#cliente"
+                href={CLIENTE}
+                onClick={(e) => go(e, CLIENTE)}
                 className={`hidden items-center gap-2 rounded-full border px-4 py-2 text-[12px] font-medium tracking-[0.04em] transition-colors duration-500 sm:inline-flex ${
                   scrolled
                     ? "border-ink/15 hover:bg-ink hover:text-paper"
@@ -151,7 +156,7 @@ export default function Header() {
           </ul>
         </nav>
         <div className="container-x flex items-end justify-between pb-10 pt-8">
-          <a href="#cliente" className="inline-flex items-center gap-2 text-sm">
+          <a href={CLIENTE} onClick={(e) => go(e, CLIENTE)} className="inline-flex items-center gap-2 text-sm">
             Área do cliente <Arrow diagonal />
           </a>
           <p className="label text-paper/40">Belo Horizonte · MG</p>
