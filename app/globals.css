@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f2f0ea;
+  --color-paper-2: #e8e6de;
+  --color-sage: #e4e7df;
+  --color-ink: #0c1719;
+  --color-ink-2: #142427;
+  --color-petrol: #17383d;
+  --color-forest: #203a30;
+  --color-sky: #aac4cf;
+  --color-graphite: #2c3235;
+  --color-mute: #6b7472;
+  --color-sun: #c9a15f;
+  --color-sun-soft: #e6cf9f;
+
+  --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-display);
+    background: var(--color-paper);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-sun);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+  .hairline {
+    height: 1px;
+    background: currentColor;
+    opacity: 0.18;
+    transform-origin: left center;
+  }
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+    max-width: 1680px;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-x {
+      padding-inline: 4rem;
+    }
+  }
+  /* Linha mascarada para text reveal */
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .line-inner {
+    display: block;
+    will-change: transform;
+  }
+  /* Mídia com sobra para parallax */
+  .media {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .media > img,
+  .media > .media-inner {
+    will-change: transform;
+  }
+}
+
+/* Estados iniciais — só quando o JS está ativo e o usuário aceita movimento */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-lines] .line-inner {
+    transform: translateY(110%);
+  }
+  .js [data-fade] {
+    opacity: 0;
+  }
+  .js [data-clip="up"] {
+    clip-path: inset(100% 0% 0% 0%);
+  }
+  .js [data-clip="left"] {
+    clip-path: inset(0% 100% 0% 0%);
+  }
+  .js [data-clip="right"] {
+    clip-path: inset(0% 0% 0% 100%);
+  }
+  .js [data-clip="inset"] {
+    clip-path: inset(12% 12% 12% 12%);
+  }
+  .js [data-draw] {
+    transform: scaleX(0);
+  }
+  .js [data-unclip] {
+    clip-path: inset(9% 5% 9% 5% round 30px);
+  }
+}
+
+@keyframes pulse-sun {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+.pulse {
+  animation: pulse-sun 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+}
